@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>project</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ================= MUSIK ================= -->
+<audio id="bgMusic" autoplay loop>
+    <source src="love.mp3" type="audio/mp3">
+</audio>
+
+<button id="musikBtn" class="musik-btn" onclick="toggleMusik()">🔊 Musik</button>
+
+<script>
+// Tombol kontrol musik
+function toggleMusik() {
+    const audio = document.getElementById("bgMusic");
+    const btn = document.getElementById("musikBtn");
+
+    if (audio.paused) {
+        audio.play();
+        btn.innerHTML = "🔊 Musik";
+    } else {
+        audio.pause();
+        btn.innerHTML = "🔈 Mute";
+    }
+}
+
+// Autoplay fallback
+document.addEventListener("DOMContentLoaded", function () {
+    const audio = document.getElementById("bgMusic");
+
+    audio.play().catch(() => {
+        document.body.addEventListener("click", () => {
+            audio.play();
+        }, { once: true });
+    });
+});
+</script>
+
+
+<!-- ============== BAGIAN TAMPILAN AWAL ============== -->
+<section class="awal fade-in" id="awal">
+    <div class="container slide-up">
+
+        <div class="foto-couple fade-in">
+            <img src="hermas.png" alt="Foto Kamu dan Dia">
+        </div>
+
+        <h1>Hai Hermas Syarifah</h1>
+        <p>
+            bacanya pelan - pelan yh 😁, jangan lupa klik lanjut<br>
+            Sejak pertama kali kita kenalan di IG, aku nggak nyangka bakal se-nyaman ini ngobrol sama kamu…<br>
+            Dari situ, aku mulai ngerasa ada sesuatu yang beda.
+        </p>
+
+        <button class="btn-floating" onclick="smoothScroll('cinta')">Lanjut ❤️</button>
+    </div>
+</section>
+
+
+<!-- ============== SECTION KATA-KATA CINTA ============== -->
+<section class="cinta fade-in" id="cinta">
+    <div class="container slide-up">
+        <h1>Untuk Hermas Syarifah… ❤️</h1>
+        <p>
+            Kadang aku bingung sendiri…<br>
+            kenapa setiap kali mikirin kamu, hati aku jadi lebih damai dari biasanya.<br><br>
+            Mungkin karena kamu…<br>
+            punya cara sendiri buat bikin hidupku terasa lebih indah. 💗
+        </p>
+
+        <button class="btn-floating" onclick="smoothScroll('alasan')">Lanjut Lagi 💞</button>
+    </div>
+</section>
+
+
+<!-- ============== ALASAN ============== -->
+<section id="alasan" class="fade-in">
+    <div class="container">
+        <h1>Kenapa Kamu?</h1>
+
+        <div class="alasan-box">
+            <p>✦ Karena kamu selalu bikin hariku lebih terang dari galaksi mana pun.</p>
+            <p>✦ Karena kamu bahagiaku yang tidak pernah aku minta, tapi Tuhan kasih.</p>
+            <p>✦ Karena kamu itu rumah—tempat hati ini nyaman pulang.</p>
+        </div>
+
+        <button class="btn-floating" onclick="smoothScroll('pembuka')">
+    Lanjut 💜
+</button>
+
+    </div>
+</section>
+
+
+<!-- ============== SECTION PEMBUKA NEMBAK ============== -->
+<section id="pembuka" class="fade-in">
+    <div class="container slide-up">
+
+        <!-- FOTO -->
+        <!-- FOTO TANPA MENGGESER TEKS -->
+<div class="foto-overlay">
+    <img src="fauzan.png" alt="Foto Kamu">
+</div>
+
+
+        <h1>Hari ini…</h1>
+
+        <p style="margin-top:10px;">
+            Ada sesuatu yang sudah lama ingin aku bilang ke kamu…<br>
+            Sesuatu yang terus aku simpan sejak pertama kita nyaman ngobrol.  
+        </p>
+
+        <button class="btn-floating" id="btnTyping">
+            Lanjut 💜
+        </button>
+
+    </div>
+</section>
+
+
+
+
+<!-- ============== BAGIAN NEMBAK (TYPING) ============== -->
+<section class="nembak fade-in" id="nembak">
+    <div class="container slide-up">
+
+        <!-- MUNCUL SETELAH TOMBOL DIKLIK -->
+        <div id="typingWrap" style="display:none; margin-bottom:30px;">
+            <h1 id="typingText"></h1>
+            <p id="typingKalimat" class="typing"></p>
+        </div>
+
+        <div class="btn-box" id="btnNembak" style="display:none;">
+            <button class="yes" onclick="window.location.href='resmi.html'">Mau 💜</button>
+            <button class="no" onclick="jawab('no')">Enggak 🙈</button>
+        </div>
+
+        <h3 id="hasil" class="fade-text"></h3>
+    </div>
+</section>
+
+
+<!-- ================== SMOOTH SCROLL ================== -->
+<script>
+function smoothScroll(targetId) {
+    const target = document.getElementById(targetId);
+    const start = window.scrollY;
+    const end = target.offsetTop;
+    const distance = end - start;
+    const duration = 900;
+    let startTime = null;
+
+    function animationScroll(time) {
+        if (!startTime) startTime = time;
+        const progress = time - startTime;
+
+        const easing = progress / duration < 0.5
+            ? 4 * (progress / duration) ** 3
+            : 1 - Math.pow(-2 * (progress / duration) + 2, 3) / 2;
+
+        window.scrollTo(0, start + distance * easing);
+
+        if (progress < duration) requestAnimationFrame(animationScroll);
+    }
+    requestAnimationFrame(animationScroll);
+}
+</script>
+
+
+<!-- ================== TYPING EFFECT ================== -->
+<script>
+const judul = "Aku Mau Bilang Sesuatu...";
+const kalimat = "Aku suka sama kamu ❤️ Mau nggak kamu jadi pacarku?";
+
+let i = 0, j = 0;
+
+document.getElementById("btnTyping").addEventListener("click", () => {
+    smoothScroll("nembak");
+    startTyping();
+});
+
+function startTyping() {
+    document.getElementById("typingWrap").style.display = "block";
+    typeJudul();
+}
+
+function typeJudul() {
+    if (i < judul.length) {
+        typingText.innerHTML += judul.charAt(i++);
+        setTimeout(typeJudul, 70);
+    } else {
+        setTimeout(typeKalimat, 250);
+    }
+}
+
+function typeKalimat() {
+    if (j < kalimat.length) {
+        typingKalimat.innerHTML += kalimat.charAt(j++);
+        setTimeout(typeKalimat, 45);
+    } else {
+        // Tombol mau / enggak muncul setelah typing selesai
+        document.getElementById("btnNembak").style.display = "flex";
+    }
+}
+</script>
+
+
+<!-- ================== RESPON JAWAB ================== -->
+<script>
+function jawab(pilihan) {
+    const hasil = document.getElementById("hasil");
+    hasil.style.opacity = "0";
+
+    setTimeout(() => {
+        if (pilihan === "yes") {
+            hasil.innerHTML = "Yeayyy! Mulai hari ini kamu officially jadi kebahagiaanku ❤️😍";
+            konfeti();
+        } else {
+            hasil.innerHTML = "Gapapa… aku tetep suka sama kamu kok 😌💗";
+        }
+        hasil.style.opacity = "1";
+    }, 300);
+}
+</script>
+
+
+<!-- ================== LOVE FLOATING ================== -->
+<script>
+function buatLove() {
+    const love = document.createElement("div");
+    love.classList.add("love");
+    love.innerHTML = "❤️";
+    love.style.left = Math.random() * 100 + "vw";
+    love.style.animationDuration = (3 + Math.random() * 3) + "s";
+
+    document.body.appendChild(love);
+
+    setTimeout(() => love.remove(), 6000);
+}
+setInterval(buatLove, 450);
+</script>
+
+
+<!-- ================== KONFETI ================== -->
+<script>
+function konfeti() {
+    const jumlah = 80;
+    const colors = ["#ff4f7b", "#ff9ac2", "#ffd1e8", "#ffffff"];
+
+    for (let i = 0; i < jumlah; i++) {
+        const conf = document.createElement("div");
+        conf.classList.add("confetti");
+
+        conf.style.left = Math.random() * 100 + "vw";
+        conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+
+        const size = Math.random() * 8 + 6;
+        conf.style.width = size + "px";
+        conf.style.height = size + "px";
+        conf.style.animationDuration = (2 + Math.random() * 3) + "s";
+
+        document.body.appendChild(conf);
+
+        setTimeout(() => conf.remove(), 5000);
+    }
+}
+</script>
+
+
+<!-- ================== BINTANG JATUH ================== -->
+<script>
+setInterval(() => {
+    const star = document.createElement("div");
+    star.classList.add("star");
+    star.style.left = Math.random() * window.innerWidth + "px";
+    star.style.animationDuration = (2 + Math.random() * 3) + "s";
+    document.body.appendChild(star);
+    setTimeout(() => star.remove(), 4000);
+}, 500);
+</script>
+
+
+<footer>
+    <p style="text-align:center;">© 2025 muhammad fauzan • Dibuat dengan cinta❤️</p>
+</footer>
+
+
+
+</body>
+</html>
